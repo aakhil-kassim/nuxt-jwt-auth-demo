@@ -10,7 +10,11 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "nuxt": "^3.11.2",
+    "oslo": "^1.2.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   }
