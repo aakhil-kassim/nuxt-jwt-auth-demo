@@ -15,7 +15,7 @@
           </label>
           <button type="submit">Login</button>
         </form>
-        <p v-if="loginFailed">⛔️&nbsp;Authentication Failed. Please make sure you enter the correct credentials.</p>
+        <p v-if="loginFailed">⛔️&nbsp;<b>Authentication Failed!</b><br>Please make sure you enter the correct credentials.</p>
       </div>
     </AppInterface>
   </div>

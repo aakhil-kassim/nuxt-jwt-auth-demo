@@ -2,7 +2,7 @@
   <div>
     <AppInterface>
       <p v-if="logoutStatus">ℹ️&nbsp;<i>You have sucessfully logged out.</i></p>
-      <p v-if="loginStatus">✅&nbsp;You have successfully logged in.</p>
+      <p v-if="loginStatus">✅&nbsp;<i>You have successfully logged in.</i></p>
       <h1>Home</h1>
       <p>This is the home page. Everyone is allowed to view it.</p>
     </AppInterface>
