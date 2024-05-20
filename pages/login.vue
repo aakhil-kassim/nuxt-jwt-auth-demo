@@ -2,20 +2,20 @@
   <div>
     <AppInterface>
       <div v-if="user">
-        <p>You are already logged in. Please continue.</p>
+        <p>ℹ️&nbsp;You are already logged in. Please continue.</p>
       </div>
       <div v-else>
         <p v-if="redirected">⚠️&nbsp;<i>You must be logged in to view that page!</i></p>
         <h1>Login</h1>
-        <form @submit.prevent="onLoginClick" class="login-form">
-          <input v-model="form.username" type="text" placeholder="Username" required />
-          <input v-model="form.password" type="password" placeholder="Password" required />
+        <form action="/auth/login" method="POST" class="login-form">
+          <input name="username" type="text" placeholder="Username" required />
+          <input name="password" type="password" placeholder="Password" required />
           <label>
-            <input v-model="form.rememberMe" type="checkbox" /> Remember me
+            <input name="rememberMe" type="checkbox" /> Remember me
           </label>
           <button type="submit">Login</button>
         </form>
-        <p v-if="form.error">{{ form.error }}</p>
+        <p v-if="loginFailed">⛔️&nbsp;Authentication Failed. Please make sure you enter the correct credentials.</p>
       </div>
     </AppInterface>
   </div>
@@ -27,38 +27,17 @@
   import { useRoute } from 'vue-router';
   import { useAuth } from '../composables/useAuth';
 
-  const form = ref({
-    username: '',
-    password: '',
-    rememberMe: false,
-    error: '',
-    pending: false,
-  });
-
   const route = useRoute();
   const redirected = ref(route.query.redirected === 'true');
+  const loginFailed = ref(route.query.fail === 'true');
 
   watch(route, (newRoute) => {
     redirected.value = newRoute.query.redirected === 'true';
+    loginFailed.value = newRoute.query.fail === 'true';
   });
 
   const { authUser, login } = useAuth();
-
   const user = authUser;
-
-  async function onLoginClick() {
-  try {
-    form.value.error = '';
-    form.value.pending = true;
-    await login(form.value.username, form.value.password, form.value.rememberMe);
-    navigateTo('/dashboard');
-  } catch (error) {
-    form.value.error = error.message;
-  } finally {
-    form.value.pending = false;
-  }
-}
-  
 </script>
 
 <style scoped>

@@ -1,7 +1,8 @@
 <template>
   <div>
     <AppInterface>
-      <p v-if="logout">✨&nbsp;<i>You have sucessfully logged out.</i></p>
+      <p v-if="logoutStatus">ℹ️&nbsp;<i>You have sucessfully logged out.</i></p>
+      <p v-if="loginStatus">✅&nbsp;You have successfully logged in.</p>
       <h1>Home</h1>
       <p>This is the home page. Everyone is allowed to view it.</p>
     </AppInterface>
@@ -14,9 +15,11 @@
   import { useRoute } from 'vue-router';
 
   const route = useRoute();
-  const logout = ref(route.query.logout === 'true');
+  const logoutStatus = ref(route.query.logout === 'true');
+  const loginStatus = ref(route.query.login === 'true');
 
   watch(route, (newRoute) => {
-    logout.value = newRoute.query.logout === 'true';
+    logoutStatus.value = newRoute.query.logout === 'true';
+    loginStatus.value = newRoute.query.login === 'true';
   });
 </script>

@@ -5,12 +5,12 @@ export default defineEventHandler(async (event) => {
 
   const user = await authenticate(username, password);
   if (!user) {
-    throw createError({ statusCode: 401, message: 'Invalid credentials' });
+    return sendRedirect(event, '/login?fail=true');
   }
 
   const token = await createSessionToken(user.id, rememberMe);
   if (!token) {
-    throw createError({ statusCode: 500, message: 'Failed to create session token' });
+    return sendRedirect(event, '/login?fail=true');
   }
 
   const config = useRuntimeConfig();
@@ -24,5 +24,5 @@ export default defineEventHandler(async (event) => {
     : (parseInt(config.cookieExpires) / 1000)
   });
 
-  return { user: { id: user.id, username: user.username } };
+  return sendRedirect(event, '/home?login=true');
 });

@@ -10,8 +10,16 @@
       <span class="horizontal-flex-spacer"></span>
       <ul>
         <li>
-          <a v-if="user" @click="onLogoutClick">Log Out</a>
-          <NuxtLink v-else to="/login">Log In</NuxtLink>
+          <form v-if="user" action="/auth/logout" method="POST">
+            <button type="submit">
+              Log Out
+            </button>
+          </form>
+          <form v-else action="/login" method="GET">
+            <button type="submit">
+              Log In
+            </button>
+          </form>
         </li>
       </ul>
     </header>
@@ -25,19 +33,10 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
   import { useAuth } from '../composables/useAuth';
-  import { useRouter } from 'vue-router';
-  const { authUser, logout } = useAuth();
-  const router = useRouter();
+  const { authUser } = useAuth();
 
   const user = authUser;
-
-  async function onLogoutClick() {
-    await logout();
-    router.push('/home?logout=true');
-  }
-
 </script>
 
 <style scoped>
@@ -83,14 +82,14 @@
     height: 100%;
   }
 
-  header ul li {
+  header ul li, header ul li form {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
   }
 
-  header ul li a {
+  header ul li a, header ul li form button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,13 +100,15 @@
     color: #000000;
     cursor: pointer;
     height: 100%;
+    border: none;
+    font: inherit;
   }
 
-  header ul li a:hover {
+  header ul li a:hover, header ul li form button:hover {
     background-color: #ffffff;
   }
 
-  header ul li a:active {
+  header ul li a:active, header ul li form button:active {
     background-color: #ababab;
   }
 
