@@ -16,6 +16,19 @@ This project demonstrates a simple authentication solution for Nuxt3 application
 1. The [damien-hl/nuxt3-auth-example](https://github.com/damien-hl/nuxt3-auth-example) project served as a very helpful resource. You should check it out. There are similarities to this reference project in my codebase. Thanks.
 
 
+## 🪄 Features
+
+- **JWT-Based Authentication**: Uses JSON Web Token implementation from [oslo](https://oslo.js.org/) package.
+- **Login and Logout**: Functionality for users to log in and log out.
+- **Session Management**: Persistent sessions with configurable expiration times, including "Remember Me" functionality.
+- **Protected Routes**: Middleware to protect routes and redirect unauthenticated users to the login page.
+- **Public Routes**: Configurable public routes that are accessible without authentication.
+- **SQLite Database**: User data stored in an SQLite database with bcrypt for salted password hashing.
+- **User Identity Retrieval**: Middleware and endpoints to retrieve and maintain user session information.
+- **Responsive Interface**: Simple and responsive UI with navigation and authentication status display.
+- **SSR-Friendly**: Designed with Nuxt Server-Side Rendering in mind. Core features still work without needing a clientside JS engine! You can even interactively authenticate from browsers like `w3m` *(just remember to enable cookies)*.
+
+
 ## 📋 Requirements
 
 - NodeJS Version 20 or higher.
@@ -32,6 +45,7 @@ This project demonstrates a simple authentication solution for Nuxt3 application
 2. Generate a new SQLite database and add an account with the included script.
 
     ```sh
+    # Change the placeholders
     node ./scripts/manage_db.js myusername mypassword
     ```
 
@@ -44,8 +58,10 @@ This project demonstrates a simple authentication solution for Nuxt3 application
 4. Change the secret value for the JSON Web Token. You can generate a sample one with the included script and use it as the value for `APP_JWT_SECRET` in `.env` fle.
 
     ```sh
-    node ./scripts/generate_secret.js  # I am going to copy the output
-    vi .env  # I am going to paste the output in this file
+    node ./scripts/generate_secret.js
+
+    # You copy the secret output and paste it in the .env file
+    vi .env
     ```
 
 5. Start the development server and play around with it!
