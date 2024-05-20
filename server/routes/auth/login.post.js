@@ -19,7 +19,9 @@ export default defineEventHandler(async (event) => {
     path: '/',
     sameSite: 'strict',
     secure: process.env.NODE_ENV === 'production',
-    maxAge: rememberMe ? parseInt(config.cookieRememberMeExpires, 10) : parseInt(config.cookieExpires, 10),
+    maxAge: rememberMe
+    ? (parseInt(config.cookieRememberMeExpires) / 1000)
+    : (parseInt(config.cookieExpires) / 1000)
   });
 
   return { user: { id: user.id, username: user.username } };

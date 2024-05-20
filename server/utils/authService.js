@@ -38,7 +38,7 @@ export async function authenticate(username, password) {
 export async function createSessionToken(userId, rememberMe) {
   const config = useRuntimeConfig();
   const payload = { userId };
-  const expiresIn = rememberMe ? parseInt(config.cookieRememberMeExpires, 10) : parseInt(config.cookieExpires, 10);
+  const expiresIn = rememberMe ? parseInt(config.cookieRememberMeExpires) : parseInt(config.cookieExpires);
   const secretKey = new TextEncoder().encode(config.jwtSecret);
 
   return createJWT('HS256', secretKey, payload, {
